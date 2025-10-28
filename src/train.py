@@ -65,14 +65,14 @@ def train_model():
     )
     early_stopping = EarlyStopping(
         monitor='val_loss',
-        patience=10,
+        patience=20,
         restore_best_weights=True,
         verbose=1
     )
     reduce_lr = ReduceLROnPlateau(
         monitor='val_loss',
         factor=0.5,
-        patience=5,
+        patience=10,
         min_lr=1e-5,
         verbose=1
     )
@@ -91,7 +91,7 @@ def train_model():
     history = model.fit(
         X_train, y_train,
         validation_data=(X_val, y_val),
-        epochs=150,
+        epochs=200,
         batch_size=32,
         callbacks=[model_checkpoint, early_stopping, reduce_lr],
         class_weight=class_weights_dict,
