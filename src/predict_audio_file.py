@@ -88,6 +88,11 @@ def extract_features(file_path):
     mfcc_means = np.mean(mfccs, axis=1)
     mfcc_stds = np.std(mfccs, axis=1)
 
+    # Interleave MFCC means and stds
+    mfcc_interleaved = np.empty(mfcc_means.size + mfcc_stds.size, dtype=mfcc_means.dtype)
+    mfcc_interleaved[0::2] = mfcc_means
+    mfcc_interleaved[1::2] = mfcc_stds
+
     # Combine all features into a single array in the correct order
     features = np.array([
         mean_spectral_centroid, std_spectral_centroid,
@@ -96,7 +101,7 @@ def extract_features(file_path):
         mean_spectral_rolloff, zero_crossing_rate, rms_energy,
         mean_pitch, min_pitch, max_pitch, std_pitch,
         spectral_skew, spectral_kurtosis, energy_entropy, log_energy,
-        *mfcc_means, *mfcc_stds
+        *mfcc_interleaved
     ])
 
     return features
