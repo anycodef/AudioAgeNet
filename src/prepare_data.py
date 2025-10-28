@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 # Constants
-DATA_PATH = 'data/dummy_features.csv'
+DATA_PATH = 'data/audio_features_with_gender_and_age.csv'
 ARTIFACTS_DIR = 'artifacts'
 REPORTS_DIR = 'reports'
 SEED = 42
@@ -49,7 +49,8 @@ def prepare_data():
     print("Class mapping saved.")
 
     # Separate features and target
-    features = [col for col in df.columns if col.startswith('feature_')]
+    excluded_cols = ['gender', 'age', 'target6', 'target6_encoded']
+    features = [col for col in df.columns if col not in excluded_cols]
     X = df[features]
     y = df['target6_encoded']
 
