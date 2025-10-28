@@ -33,15 +33,15 @@ def train_model():
 
     # Define the MLP architecture
     model = Sequential([
-        Dense(128, kernel_initializer='he_normal', input_shape=(n_features,)),
+        Dense(256, kernel_initializer='he_normal', input_shape=(n_features,)),
+        BatchNormalization(),
+        ReLU(),
+        Dropout(0.2),
+        Dense(128, kernel_initializer='he_normal'),
         BatchNormalization(),
         ReLU(),
         Dropout(0.2),
         Dense(64, kernel_initializer='he_normal'),
-        BatchNormalization(),
-        ReLU(),
-        Dropout(0.2),
-        Dense(32, kernel_initializer='he_normal'),
         ReLU(),
         Dense(n_classes, activation='softmax')
     ])

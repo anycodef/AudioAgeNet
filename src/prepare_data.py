@@ -75,9 +75,10 @@ def prepare_data():
     X_val_scaled = scaler.transform(X_val)
     X_test_scaled = scaler.transform(X_test)
 
-    # Save the scaler
+    # Save the scaler and feature list
     joblib.dump(scaler, os.path.join(ARTIFACTS_DIR, 'scaler.pkl'))
-    print("Scaler saved.")
+    joblib.dump(features, os.path.join(ARTIFACTS_DIR, 'feature_list.pkl'))
+    print("Scaler and feature list saved.")
 
     # Save processed data
     np.save(os.path.join(ARTIFACTS_DIR, 'X_train.npy'), X_train_scaled)
